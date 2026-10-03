@@ -1,7 +1,7 @@
 # Despensa Viva
 
 [![Status](https://img.shields.io/badge/status-[em_desenvolvimento]-yellow)]()
-[![Versão](https://img.shields.io/badge/versão-[0.0.0]-blue)]()
+[![Versão](https://img.shields.io/badge/versão-[0.0.1]-blue)]()
 [![Licença](https://img.shields.io/badge/licença-[acadêmica]-lightgrey)]()
 
 **Instituição:** CEUB  
