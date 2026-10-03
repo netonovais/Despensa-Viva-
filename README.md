@@ -1,6 +1,4 @@
-# [Nome do Projeto]
-
-> Substitua os trechos entre colchetes `[ ]` pelas informações reais do trabalho. Remova esta nota e as demais orientações em *itálico* antes da entrega.
+# Despensa Viva
 
 [![Status](https://img.shields.io/badge/status-[em_desenvolvimento]-yellow)]()
 [![Versão](https://img.shields.io/badge/versão-[0.0.0]-blue)]()
@@ -11,7 +9,7 @@
 **Disciplina:** Desenvolvimento Web  
 **Turma / Semestre:** Turma A / 2026.2  
 **Professor(a):** Felippe Pires Ferreira  
-**Status do projeto:** Em desenvolvimento
+**Status do projeto:** Fase 1 (documentação e arquitetura)
 
 ---
 
@@ -37,25 +35,30 @@
 
 ## 1. Descrição do projeto
 
-*Apresente o contexto, o problema e a solução proposta. Use linguagem objetiva (dois a quatro parágrafos).*
+Famílias e pessoas que moram sozinhas costumam controlar os alimentos de forma informal, sem registro do que existe, onde está guardado ou quando vence. O resultado são compras repetidas, produtos esquecidos no fundo do armário e desperdício por vencimento, com impacto no orçamento doméstico e no meio ambiente.
 
-[Descreva o que o sistema faz, para quem ele se destina e qual problema ele resolve.]
+A Despensa Viva é uma aplicação web que centraliza o estoque doméstico. O morador cadastra locais de armazenamento (geladeira, armário etc.), produtos e itens com quantidade e validade, registra consumo e descarte, e acompanha alertas de itens vencidos ou a vencer. Um relatório consolida os indicadores da despensa, com exportação em CSV e versão para impressão.
+
+Para tornar o cadastro rápido, o sistema consome a API pública Open Food Facts: ao informar o código de barras, nome, marca, Nutri-Score e dados nutricionais são preenchidos automaticamente. Uma API REST própria permite que terceiros consultem os dados do estoque.
 
 ### Objetivos
 
 *Liste os objetivos gerais e específicos do projeto.*
 
-- **Objetivo geral:** [Ex.: desenvolver uma aplicação web para gerenciar reservas de laboratórios.]
+- **Objetivo geral:** desenvolver uma aplicação web que reduza o desperdício de alimentos domésticos por meio do controle de estoque e de validades.
 - **Objetivos específicos:**
-  - [Ex.: permitir cadastro e autenticação de usuários.]
-  - [Ex.: registrar e consultar reservas por data e laboratório.]
-  - [Ex.: gerar relatórios de ocupação.]
+  - permitir cadastro e autenticação de usuários, com isolamento dos dados de cada um;
+  - cadastrar, consultar, alterar e excluir locais, produtos e itens de estoque;
+  - preencher dados de produtos a partir do código de barras (API externa);
+  - alertar sobre itens vencidos e a vencer;
+  - gerar relatório consolidado, exportável e imprimível;
+  - expor uma API REST documentada;
+  - publicar a aplicação com HTTPS e submetê-la a análises SAST e DAST.
 
 ### Público-alvo
 
-- [Ex.: estudantes da instituição]
-- [Ex.: professores responsáveis pelos laboratórios]
-- [Ex.: equipe administrativa]
+- Moradores de residências (famílias, estudantes, repúblicas)
+- Pessoas que desejam organizar compras e reduzir desperdício
 
 ---
 
@@ -65,22 +68,29 @@
 
 | Funcionalidade | Descrição | Status |
 | --- | --- | --- |
-| [Ex.: Autenticação] | [Ex.: login, logout e recuperação de senha] | [Implementada / Em andamento / Planejada] |
-| [Ex.: Cadastro de usuários] | [Ex.: criação e edição de perfis] | [Implementada / Em andamento / Planejada] |
-| [Ex.: Relatórios] | [Ex.: exportação em PDF] | [Implementada / Em andamento / Planejada] |
+| Autenticação (RF01) | Cadastro, login e logout de usuários | Planejada |
+| Categorias (RF03) | Manutenção de categorias pelo administrador | Planejada |
+| Produtos (RF04) | CRUD do catálogo de produtos | Planejada |
+| Consulta por código de barras (RF05) | Preenchimento automático via Open Food Facts | Planejada |
+| Itens de estoque (RF06) | CRUD de itens com quantidade, validade e preço | Planejada |
+| Consumo e descarte (RF07) | Baixa de estoque com histórico de movimentações | Planejada |
+| Busca e filtros (RF08) | Busca por nome, marca, código, categoria, local e validade | Planejada |
+| Painel de alertas (RF09) | Itens vencidos e a vencer em 7 dias | Planejada |
+| Relatório (RF10) | Indicadores consolidados, exportação CSV e impressão | Planejada |
+| API REST (RF11) | API v1 com token, filtros, paginação e OpenAPI | Planejada |
 
 ### Requisitos não funcionais
 
 *Informe restrições de qualidade, quando existirem.*
 
-- **Desempenho:** [Ex.: respostas da API em menos de 2 segundos]
-- **Segurança:** [Ex.: senhas armazenadas com hash; HTTPS em produção]
-- **Usabilidade:** [Ex.: interface responsiva para desktop e celular]
-- **Disponibilidade:** [Ex.: uso em ambiente local / laboratório da disciplina]
+- **Desempenho:** páginas comuns em até 2 s com até 5.000 itens por usuário; timeout de 5 s na API externa.
+- **Segurança:** senhas com hash do Django; HTTPS e DEBUG=False em produção; segredos em variáveis de ambiente; limite de requisições na API; análises SAST e DAST.
+- **Usabilidade:** interface responsiva para desktop e celular, com identidade visual própria.
+- **Disponibilidade:** aplicação publicada em URL pública durante o período de avaliação.
 
 ---
 
-## 3. Demonstração
+## 3. Demonstraçãom (Em desenvolvimento...)
 
 *Inclua capturas de tela, GIF ou link para vídeo. Coloque as imagens em `images/`.*
 
@@ -97,34 +107,37 @@
 
 ## 4. Tecnologias utilizadas
 
-*Informe as tecnologias de fato usadas no projeto. Remova as linhas que não se aplicarem.*
+Tecnologias previstas para a implementação (Fase 2):
 
 | Camada | Tecnologia | Versão |
 | --- | --- | --- |
-| Linguagem | [Ex.: Python, Java, TypeScript] | [Ex.: 3.12] |
-| Frontend | [Ex.: HTML, CSS, React] | [Ex.: 18] |
-| Backend | [Ex.: Flask, Spring Boot, Node.js] | [Ex.: 3.x] |
-| Banco de dados | [Ex.: PostgreSQL, SQLite, MongoDB] | [Ex.: 16] |
-| Testes | [Ex.: pytest, JUnit, Jest] | [Ex.: 8] |
-| Infraestrutura | [Ex.: Docker, GitHub Actions] | — |
-| Outras ferramentas | [Ex.: Git, Figma, Postman] | — |
+| Linguagem | Python | 3.12 |
+| Frontend | Django Templates, HTML, CSS, Bootstrap | 5.x |
+| Backend | 	Django, Django REST Framework, drf-spectacular | 5.x |
+| Banco de dados | 	PostgreSQL (produção) e SQLite (desenvolvimento) | 16 / 3 |
+| Testes | 	Django TestCase / pytest | [] |
+| Infraestrutura | [] | — |
+| Outras ferramentas | Git, GitHub, requests | — |
 
 ---
 
 ## 5. Arquitetura
 
-*Explique como o sistema está organizado: camadas, principais componentes e o fluxo entre eles. Inclua um diagrama no PDF de arquitetura ou de classes em `docs/` e descreva-o em texto.*
-
-[Ex.: a solução segue uma arquitetura em camadas (apresentação, aplicação, domínio e persistência). O frontend consome uma API REST. O backend aplica as regras de negócio e persiste os dados no banco.]
+A solução é um monolito Django modular. Páginas HTML renderizadas no servidor e uma API REST JSON compartilham os mesmos models e regras de negócio. Um módulo de integração isola a comunicação com a Open Food Facts, e os produtos consultados ficam salvos no catálogo local (cache). A escolha por monolito atende ao tamanho da equipe, ao prazo e à facilidade de implantação.
 
 ```text
-[Usuário] → [Interface / Frontend] → [API / Backend] → [Banco de dados]
+[Morador] → [Templates + Bootstrap] ┐
+                                    ├→ [Apps Django: accounts | inventory | reports | api] → [PostgreSQL]
+[Terceiro] → [API REST /api/v1/]  ──┘                         │
+                                                              └→ [integrations] → [Open Food Facts]
 ```
 
 **Decisões relevantes:**
 
-- [Ex.: uso de API REST para separar cliente e servidor.]
-- [Ex.: persistência relacional porque os dados possuem relacionamentos bem definidos.]
+- Monolito modular, pela simplicidade operacional e pelo reuso de regras entre web e API.
+- Persistência relacional (PostgreSQL), porque os dados têm relacionamentos bem definidos (usuário, local, produto, item, movimentação).
+- Product funciona como cache da API externa, reduzindo chamadas e mantendo o sistema operando se a API cair.
+- Isolamento por usuário: toda consulta filtra os registros do dono autenticado.
 
 ### Endpoints principais (quando houver API)
 
@@ -146,66 +159,63 @@ Documentação completa da API: [link para Swagger, Postman ou `docs/api.md`]
 
 ```text
 .
-├── README.md                 # Documentação principal do projeto
-├── .env.example              # Modelo de variáveis de ambiente (sem segredos)
-├── docs/                     # Modelagem e demais artefatos técnicos (PDF)
-│   ├── README.pdf            # Índice da pasta docs/
-│   └── modelagem/
-│       ├── casos-de-uso/
-│       │   └── especificacoes-casos-de-uso.pdf
-│       ├── classes/
-│       │   └── diagrama-de-classes.pdf
-│       └── banco-de-dados/
-│           ├── diagrama-er.pdf
-│           └── modelo-logico.pdf
-├── images/                   # Figuras da documentação geral (ex.: política de IA)
-├── src/                      # Código-fonte da aplicação
-│   ├── frontend/             # Interface com o usuário (quando houver)
-│   └── backend/              # Regras de negócio, API e acesso a dados (quando houver)
-├── tests/                    # Testes automatizados
-└── scripts/                  # Scripts auxiliares de setup, build ou deploy
+├── README.md                          # Documentação principal do projeto
+├── .env.example                       # Modelo de variáveis de ambiente (Fase 2)
+├── .gitignore
+├── images/                            # Figuras da documentação geral (ex.: política de IA)
+├── docs/
+│   ├── rastreabilidade.md             # Matriz requisitos × casos de uso × modelo × API
+│   ├── visao/                         # Documento de Visão
+│   ├── casos-de-uso/                  # Diagrama UML (fonte, SVG, PNG) e especificações
+│   ├── arquitetura/                   # Diagrama de componentes e texto de arquitetura
+│   ├── banco-de-dados/                # Modelo ER (fontes, SVG, PNG) e dicionário de dados
+│   ├── api/                           # Contrato da API própria e plano de integração externa
+│   ├── prototipos/                    # Identidade visual, logotipo e wireframes
+│   ├── planejamento/                  # Backlog, responsáveis, marcos e riscos
+│   ├── diagramas/                     # Fontes editáveis (.puml, .mmd) e exportações
+│   └── seguranca/                     # Evidências SAST/DAST (Fase 2)
+├── src/                               # (Fase 2) Projeto Django
+├── tests/                             # (Fase 2) Testes automatizados
+└── scripts/                           # (Fase 2) Scripts auxiliares
 ```
 
 | Diretório / arquivo | Função |
 | --- | --- |
 | `README.md` | Apresentação do projeto, objetivos, tecnologias e instruções de uso |
-| `.env.example` | Lista das variáveis necessárias, sem credenciais reais |
-| `docs/` | Artefatos de análise e modelagem em PDF |
-| `docs/modelagem/` | Casos de uso, classes e modelo de dados (diagramas embutidos nos PDFs) |
-| `images/` | Figuras da documentação geral do repositório (não usar para diagramas de modelagem) |
-| `src/` | Código-fonte organizado por camada ou módulo |
-| `tests/` | Casos de teste e evidências de verificação |
-| `scripts/` | Automação de ambiente e execução |
+| `docs/visao/` | Contexto, objetivos, escopo, restrições, riscos e critérios de sucesso |
+| `docs/casos-de-uso/` | Diagrama UML e especificação textual dos casos de uso |
+| `docs/arquitetura/` | Componentes, camadas, fluxo de dados e justificativas |
+| `docs/banco-de-dados/` | Diagrama ER e dicionário de dados |
+| `docs/api/` | Contrato da API REST e plano de integração com a Open Food Facts |
+| `docs/prototipos/` | Nome, paleta, tipografia, logotipo e protótipos |
+| `docs/planejamento/` | Backlog, marcos e riscos até a Fase 2 |
+| `docs/diagramas/` | Arquivos-fonte editáveis e exportações dos diagramas |
+| `docs/seguranca/` | Relatórios e evidências de SAST/DAST |
 
 ---
 
 ## 7. Participantes
 
-*Informe nome completo, função no grupo e, se houver, o identificador acadêmico (matrícula).*
-
 | Nome | Matrícula | Função no projeto |
 | --- | --- | --- |
-| [Nome completo] | [000000] | [Ex.: coordenação / backend / frontend / testes / documentação] |
-| [Nome completo] | [000000] | [Ex.: backend] |
-| [Nome completo] | [000000] | [Ex.: frontend] |
-| [Nome completo] | [000000] | [Ex.: testes e documentação] |
+| José Neto | 22502693 | Back-end e API, integração externa, infraestrutura e segurança |
+| Matheus Covre | [000000] | Front-end e templates, relatórios, testes e identidade visual |
 
-**Professor(a) responsável:** [Nome completo]
-
+**Professor(a) responsável:** Felippe Pires Ferreira
 ---
 
-## 8. Como executar
+## 8. Como executar (Em desenvolvimento...)
 
 *Preencha com os comandos reais do projeto para que outra pessoa consiga reproduzir o ambiente.*
 
-### Pré-requisitos
+### Pré-requisitos (Em desenvolvimento...)
 
 - [Ex.: Git]
 - [Ex.: Python 3.12+]
 - [Ex.: Node.js 20+]
 - [Ex.: Docker]
 
-### Instalação e execução
+### Instalação e execução (Em desenvolvimento...)
 
 ```bash
 # 1. Clonar o repositório
@@ -233,7 +243,7 @@ cp .env.example .env
 
 ---
 
-## 9. Configuração
+## 9. Configuração (Em desenvolvimento...)
 
 *Liste as variáveis de ambiente usadas pelo sistema. Nunca publique senhas, tokens ou chaves neste arquivo.*
 
@@ -247,7 +257,7 @@ Credenciais reais devem ficar apenas no arquivo `.env` (não versionado).
 
 ---
 
-## 10. Testes
+## 10. Testes (Em desenvolvimento...)
 
 *Descreva como executar os testes e o que eles cobrem.*
 
@@ -281,10 +291,10 @@ Este repositório segue a política de uso de IA da disciplina (semáforo pedag�
 
 *Preencha de forma honesta. Se não houve uso de IA, declare explicitamente.*
 
-- **Houve uso de IA neste projeto?** [Sim / Não]
-- **Ferramentas utilizadas:** [Ex.: ChatGPT, GitHub Copilot, Gemini — ou “nenhuma”]
-- **Finalidade:** [Ex.: revisão de texto, geração de esboço de testes, esclarecimento de dúvidas de sintaxe]
-- **O que NÃO foi delegado à IA:** [Ex.: definição do problema, modelagem, implementação das regras de negócio, testes finais]
+- **Houve uso de IA neste projeto?** Sim
+- **Ferramentas utilizadas:** 
+- **Finalidade:** elaboração do rascunho da documentação da Fase 1, revisão gramátical, formatação de texto.
+- **O que NÃO foi delegado à IA:** definição do problema, modelagem, implementação das regras de negócio
 
 ---
 
@@ -325,8 +335,8 @@ Use mensagens curtas e no imperativo, por exemplo:
 
 | Versão | Data | Descrição |
 | --- | --- | --- |
-| `0.1.0` | [AAAA-MM-DD] | [Ex.: primeira versão executável / MVP] |
-| `0.0.1` | [AAAA-MM-DD] | [Ex.: estrutura inicial do repositório] |
+| `0.0.1` | 2026-10-03 | Estrutura inicial do repositório e documentação da Fase 1 |
+
 
 ---
 
@@ -334,20 +344,27 @@ Use mensagens curtas e no imperativo, por exemplo:
 
 ### Problemas conhecidos
 
-- [Ex.: a recuperação de senha ainda não envia e-mail]
-- [Ex.: o layout quebra em telas menores que 360 px]
+- A aplicação ainda não foi implementada; este repositório contém apenas a documentação e a arquitetura (Fase 1).
+- A leitura de código de barras pela câmera, notificações por e-mail/push e o compartilhamento de despensa entre usuários estão fora do escopo.
+- Nem todo produto brasileiro existe na base da Open Food Facts; nesses casos o cadastro é manual.
 
 ### Roadmap
 
-- [ ] [Ex.: autenticação com dois fatores]
-- [ ] [Ex.: exportação de relatórios em CSV]
-- [ ] [Ex.: implantação em ambiente de homologação]
+- [x] Documentação e arquitetura (Fase 1)
+- [ ] Projeto Django, models, migrations e autenticação
+- [ ] CRUD, busca, painel de alertas e identidade visual
+- [ ] Integração com a Open Food Facts
+- [ ] API REST e documentação OpenAPI
+- [ ] Relatório com exportação CSV e impressão
+- [ ] Testes automatizados
+- [ ] Publicação com HTTPS
+- [ ] SAST e DAST, correções e relatório de segurança
 
 ---
 
 ## 15. Licença, referências e contato
 
-**Licença:** [Ex.: uso exclusivamente acadêmico / MIT / outro]
+**Licença:** uso exclusivamente acadêmico.
 
 Este material destina-se a fins educacionais. Verifique com a disciplina se o código pode ser reutilizado fora do curso.
 
@@ -362,11 +379,14 @@ Este material destina-se a fins educacionais. Verifique com a disciplina se o c�
 
 ### Referências
 
-- [Autor. Título. Ano. URL ou dados bibliográficos.]
-- [Documentação oficial da tecnologia X.]
+- Open Food Facts. API Documentation. https://openfoodfacts.github.io/openfoodfacts-server/api/
+- Django Software Foundation. Django Documentation. https://docs.djangoproject.com/
+- Django REST Framework. https://www.django-rest-framework.org/
+- drf-spectacular. https://drf-spectacular.readthedocs.io/
+- OWASP. OWASP ZAP. https://www.zaproxy.org/
 
 ### Contato
 
-Dúvidas sobre o projeto: [e-mail institucional do grupo ou issue no repositório]
+Dúvidas sobre o projeto: e-mail institucional (José Neto): netonovais@sempreceub.com
 
-**Agradecimentos:** [Ex.: professor(a), monitoria, materiais da disciplina]
+**Agradecimentos:** Professor Felippe Pires Ferreira
