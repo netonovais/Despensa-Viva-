@@ -199,7 +199,7 @@ Documentação completa da API: [link para Swagger, Postman ou `docs/api.md`]
 | Nome | Matrícula | Função no projeto |
 | --- | --- | --- |
 | José Neto | 22502693 | Back-end e API, integração externa, infraestrutura e segurança |
-| Matheus Covre | [000000] | Front-end e templates, relatórios, testes e identidade visual |
+| Matheus Covre | [22504913] | Front-end e templates, relatórios, testes e identidade visual |
 
 **Professor(a) responsável:** Felippe Pires Ferreira
 ---
